@@ -41,6 +41,8 @@ def main():
     rime_userdb_path = input("rime_userdb_path: ")
     with open(rime_userdb_path, encoding="utf-8") as f:
         userdb_data = f.read()
+
+    # (可选)将繁体字的userdb.txt内容转成简体字
     userdb_data = trans_to_simp(userdb_data)
 
     # 匹配自定义短语
