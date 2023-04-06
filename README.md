@@ -23,9 +23,7 @@
     ```python
     def main():
         # 获取 rime userdb.txt 用户词典
-        rime_userdb_path = input("rime_userdb_path: ")
-        with open(rime_userdb_path, encoding="utf-8") as f:
-            userdb_data = f.read()
+        userdb_data = read_file()
 
         # (可选)将繁体字的userdb.txt内容转成简体字
         userdb_data = trans_to_simp(userdb_data)
@@ -34,10 +32,7 @@
         words_list = find_words(userdb_data)
 
         # 新建列表存储短语
-        new_words_list = []
-        for word in tqdm(words_list):
-            new_word = '{}\t{}\tzh-CN\n'.format(word[0], word[1])
-            new_words_list.append(new_word)
+        new_words_list = generate_gboard_format_data(words_list)
 
         # 生成 gboard 个人词典
         generate_gboardDic(words_list=new_words_list)
