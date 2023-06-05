@@ -18,27 +18,9 @@
     pip3 install -r requirements.txt
     ```
 
-2. (可选) userdb.txt 文件内容是 rime 默认为繁体中文, 如果是简体中文的 userdb.txt, 则需注释一行代码 `userdb_data = trans_to_simp(userdb_data)`:
+2. 运行脚本, 按照提示将你的待转换的 `userdb.txt` 拖拽入命令行.
 
-    ```python
-    def main():
-        # 获取 rime userdb.txt 用户词典
-        userdb_data = read_file()
-
-        # (可选)将繁体字的userdb.txt内容转成简体字
-        userdb_data = trans_to_simp(userdb_data)
-
-        # 匹配自定义短语
-        words_list = find_words(userdb_data)
-
-        # 新建列表存储短语
-        new_words_list = generate_gboard_format_data(words_list)
-
-        # 生成 gboard 个人词典
-        generate_gboardDic(words_list=new_words_list)
-    ```
-
-3. 运行脚本, 按照提示将你的待转换的 `userdb.txt` 拖拽入命令行.
+3. 按照提示, 输入 `userdb.txt` 和 `PersonalDictionary.zip` 的文字简繁类型.
 
 4. 回车, 等待数秒, `.zip` 压缩文件将自动生成.
 
