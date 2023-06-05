@@ -10,8 +10,7 @@ from tqdm import tqdm
 
 
 # 获取 rime userdb.txt 用户词典
-def read_file():
-    rime_userdb_path = input("rime_userdb_path: ")
+def read_file(rime_userdb_path: str):
     userdb_data = []
     with open(rime_userdb_path, encoding="utf-8") as f:
         for line in tqdm(f, total=sum(1 for _ in open(rime_userdb_path, "r", encoding="utf-8")), desc="读取 userdb.txt 文件"):
@@ -23,7 +22,15 @@ def read_file():
 def trans_to_simp(input_data: list):
     output_data = []
     converter = opencc.OpenCC('t2s.json')
-    for item in tqdm(input_data, desc="opencc 转换"):
+    for item in tqdm(input_data, desc="opencc 繁体转简体"):
+        output_data.append(converter.convert(item))
+    return output_data
+
+# 通过 opencc 简体转繁体
+def simp_to_trans(input_data: list):
+    output_data = []
+    converter = opencc.OpenCC('s2t.json')
+    for item in tqdm(input_data, desc="opencc 简体转繁体"):
         output_data.append(converter.convert(item))
     return output_data
 
@@ -63,11 +70,31 @@ def generate_gboardDic(words_list: list):
 
 
 def main():
-    # 获取 rime userdb.txt 用户词典
-    userdb_data = read_file()
+    rime_userdb_path = input("输入 rime_userdb_path: ")
 
-    # (可选)将繁体字的userdb.txt内容转成简体字
-    userdb_data = trans_to_simp(userdb_data)
+    # 获取 rime userdb.txt 用户词典
+    userdb_data = read_file(rime_userdb_path)
+
+    while True:
+        input_format = ["0", "1"]
+        userdb_type = input("输入 Rime userdb.txt 简繁类型 (0 -- 简体, 1 -- 繁体): ")
+        if userdb_type not in input_format:
+            userdb_type = print("格式不对, 重新输入")
+            continue
+        gboard_type = input("输入 Gboard .zip 简繁类型 (0 -- 简体, 1 -- 繁体): ")
+        if gboard_type not in input_format:
+            gboard_type = print("格式不对, 重新输入")
+            continue
+        else:
+            break
+
+    # 将简体字的userdb.txt内容转成繁体字
+    if (userdb_type == "0" and gboard_type == "1"):
+        userdb_data = simp_to_trans(userdb_data)
+
+    # 将繁体字的userdb.txt内容转成简体字
+    if (userdb_type == "1" and gboard_type == "0"):
+        userdb_data = trans_to_simp(userdb_data)
 
     # 匹配自定义短语
     words_list = find_words(userdb_data)
