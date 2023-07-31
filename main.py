@@ -81,7 +81,7 @@ def main():
         if userdb_type not in input_format:
             userdb_type = print("格式不对, 重新输入")
             continue
-        gboard_type = input("输入 Gboard .zip 简繁类型 (0 -- 简体, 1 -- 繁体): ")
+        gboard_type = input("输入 GboardDictionary.zip 简繁类型 (0 -- 简体, 1 -- 繁体): ")
         if gboard_type not in input_format:
             gboard_type = print("格式不对, 重新输入")
             continue
