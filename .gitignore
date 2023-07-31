@@ -1,3 +1,7 @@
 dictionary.txt
 *.userdb.txt
 *.zip
+venv/
+dist/
+build/
+*.spec
