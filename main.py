@@ -17,6 +17,14 @@ def read_file(rime_userdb_path: str):
             userdb_data.append(line)
     return userdb_data
 
+# 判断输入方案
+def get_scheme(userdb_data: list):
+    scheme_type = ""
+    if "luna_pinyin" in userdb_data[1]:
+        scheme_type = "luna_pinyin"
+    elif "wubi86" in userdb_data[1]:
+        scheme_type = "wubi86"
+    return scheme_type
 
 # 通过 opencc 繁体转简体
 def trans_to_simp(input_data: list):
@@ -36,12 +44,27 @@ def simp_to_trans(input_data: list):
 
 
 # 通过正则匹配自定义短语
-def find_words(input_data: list):
+def find_words(scheme_type: str, input_data: list):
     result = []
-    pattern = re.compile(r'(.*?)\t(.*?)\t')
-    for line in tqdm(input_data, desc="正则匹配短语"):
-        res = pattern.findall(line)
-        result.append(res)
+
+    if scheme_type == "luna_pinyin":
+        pattern = re.compile(r'(.*?)\t(.*?)\t')
+        for line in tqdm(input_data, desc="正则匹配短语"):
+            res = pattern.findall(line)
+            result.append(res)
+    elif scheme_type == "wubi86":
+        pattern = re.compile(r'(.*?)\t(.*?)\t')
+        for line in tqdm(input_data, desc="正则匹配短语"):
+            res = pattern.findall(line)
+            new_res = ()
+            if len(res) == 1:
+                res_list = list(res)
+                new_key = res_list[0][0].replace('\x7fenc\x1f', '')
+                new_res = [(new_key, res_list[0][1])]
+            else:
+                new_res = res
+            result.append(new_res)
+    
     return result
 
 
@@ -75,6 +98,17 @@ def main():
     # 获取 rime userdb.txt 用户词典
     userdb_data = read_file(rime_userdb_path)
 
+    # 判断输入方案
+    scheme_type = get_scheme(userdb_data=userdb_data)
+    if scheme_type != "":
+        scheme_result = input("识别为 {} 词库, 输入 0 -- 正确, 1 -- 错误 以继续: ".format(scheme_type))
+    if scheme_type == "" or scheme_result == 1:
+        input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- luna_pinyin, 1 -- wubi86): ")
+        if input_scheme_type == 0:
+            scheme_type == "luna_pinyin"
+        elif input_scheme_type == 1:
+            scheme_type = "wubi86"
+
     while True:
         input_format = ["0", "1"]
         userdb_type = input("输入 Rime userdb.txt 简繁类型 (0 -- 简体, 1 -- 繁体): ")
@@ -97,7 +131,7 @@ def main():
         userdb_data = trans_to_simp(userdb_data)
 
     # 匹配自定义短语
-    words_list = find_words(userdb_data)
+    words_list = find_words(scheme_type, userdb_data)
 
     # 新建列表存储短语
     new_words_list = generate_gboard_format_data(words_list)
@@ -105,6 +139,7 @@ def main():
     # 生成 gboard 个人词典
     generate_gboardDic(words_list=new_words_list)
 
+    input("转换完成, 回车退出.")
 
 if __name__ == '__main__':
     main()
