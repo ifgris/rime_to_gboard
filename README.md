@@ -8,8 +8,8 @@
 
 ## 适用输入方案
 
-- 全拼 (luna_pinyin)
-- 五笔 (wubi86)
+- 全拼 luna_pinyin
+- 五笔 wubi86 (测试)
 
 ## 脚本依赖
 
@@ -39,7 +39,7 @@
 
 1. [下载](https://github.com/cgcel/rime_to_gboard/releases) 应用程序, 保存至本地
 2. 打开 rime2gboard.exe, 按照提示将待转换的 `*.userdb.txt` 拖入窗口, 或直接输入文件地址
-3. 按照后续提示输入繁简类型后回车
+3. 按照后续提示确认输入方案, 输入繁简类型后回车
 4. 与 [上述](#命令行) 第5步操作一致
 
 ## License
