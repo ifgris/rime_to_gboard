@@ -103,7 +103,7 @@ def main():
     if scheme_type != "":
         scheme_result = input("识别为 {} 词库, 输入 0 -- 正确, 1 -- 错误 以继续: ".format(scheme_type))
     if scheme_type == "" or scheme_result == 1:
-        input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- luna_pinyin, 1 -- wubi86): ")
+        input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- pinyin, 1 -- wubi): ")
         if input_scheme_type == 0:
             scheme_type == "luna_pinyin"
         elif input_scheme_type == 1:
