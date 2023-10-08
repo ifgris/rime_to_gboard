@@ -104,20 +104,20 @@ def main():
         scheme_result = input("识别为 {} 词库, 输入 0 -- 正确, 1 -- 错误 以继续: ".format(scheme_type))
     if scheme_type == "" or scheme_result == 1:
         input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- pinyin, 1 -- wubi): ")
-        if input_scheme_type == 0:
-            scheme_type == "luna_pinyin"
-        elif input_scheme_type == 1:
+        if input_scheme_type == '0':
+            scheme_type = "luna_pinyin"
+        elif input_scheme_type == '1':
             scheme_type = "wubi86"
 
     while True:
         input_format = ["0", "1"]
         userdb_type = input("输入 Rime userdb.txt 简繁类型 (0 -- 简体, 1 -- 繁体): ")
         if userdb_type not in input_format:
-            userdb_type = print("格式不对, 重新输入")
+            userdb_type = print("参数格式错误, 重新输入")
             continue
         gboard_type = input("输入 GboardDictionary.zip 简繁类型 (0 -- 简体, 1 -- 繁体): ")
         if gboard_type not in input_format:
-            gboard_type = print("格式不对, 重新输入")
+            gboard_type = print("参数格式错误, 重新输入")
             continue
         else:
             break
