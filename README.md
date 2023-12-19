@@ -1,5 +1,9 @@
 # rime_to_gboard
 
+![GitHub](https://img.shields.io/github/license/cgcel/rime_to_gboard)
+![Github all releases](https://img.shields.io/github/downloads/cgcel/rime_to_gboard/total.svg)
+![GitLab latest release](https://badgen.net/github/release/cgcel/rime_to_gboard)
+
 ## 简介
 
 借助 Rime 输入法的 `userdb.txt` 用户词库, 让 Gboard 的输入体验媲美旧时的 Google Pinyin.
