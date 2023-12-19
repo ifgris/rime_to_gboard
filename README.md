@@ -3,6 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/cgcel/rime_to_gboard)
 ![Github all releases](https://img.shields.io/github/downloads/cgcel/rime_to_gboard/total.svg)
 ![GitLab latest release](https://badgen.net/github/release/cgcel/rime_to_gboard)
+[![CodeQL](https://github.com/cgcel/rime_to_gboard/actions/workflows/codeql.yml/badge.svg?branch=master)](https://github.com/cgcel/rime_to_gboard/actions/workflows/codeql.yml)
 
 ## 简介
 
