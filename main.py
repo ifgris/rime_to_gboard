@@ -122,11 +122,11 @@ def main():
         else:
             break
 
-    # 将简体字的userdb.txt内容转成繁体字
+    # 将简体字的 userdb.txt 内容转成繁体字
     if (userdb_type == "0" and gboard_type == "1"):
         userdb_data = simp_to_trans(userdb_data)
 
-    # 将繁体字的userdb.txt内容转成简体字
+    # 将繁体字的 userdb.txt 内容转成简体字
     if (userdb_type == "1" and gboard_type == "0"):
         userdb_data = trans_to_simp(userdb_data)
 
