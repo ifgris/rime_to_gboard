@@ -31,6 +31,24 @@ DOUBLE_PINYIN_FLYPY_KEY = {
         "m": "m",
     },
     
+    # 零声母
+    "ZERO_INITIALS":{
+        "a": "aa", 
+        "o": "oo",
+        "e" : "ee",
+    },
+    
+    # 双字母
+    "DOUBLE_LETTERS":{
+        "ai": "ai",
+        "an": "an",
+        "ao": "ao",
+        "ei": "ei",
+        "en": "en",
+        "er": "er",
+        "ou": "ou",
+    },
+   
     # 韵母
     "VOWEL":{
         "iu": "q",

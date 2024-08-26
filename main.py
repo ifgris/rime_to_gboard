@@ -8,6 +8,8 @@ from datetime import datetime
 import opencc
 from tqdm import tqdm
 
+from double_pinyin_key import DOUBLE_PINYIN_FLYPY_KEY
+
 
 # 获取 rime userdb.txt 用户词典
 def read_file(rime_userdb_path: str):
@@ -52,7 +54,7 @@ def find_words(scheme_type: str, input_data: list):
         for line in tqdm(input_data, desc="正则匹配短语"):
             res = pattern.findall(line)
             result.append(res)
-    elif scheme_type == "wubi86":
+    elif scheme_type == "double_pinyin_flypy":
         pattern = re.compile(r'(.*?)\t(.*?)\t')
         for line in tqdm(input_data, desc="正则匹配短语"):
             res = pattern.findall(line)
@@ -61,8 +63,6 @@ def find_words(scheme_type: str, input_data: list):
                 res_list = list(res)
                 new_key = res_list[0][0].replace('\x7fenc\x1f', '')
                 new_res = [(new_key, res_list[0][1])]
-            else:
-                new_res = res
             result.append(new_res)
     
     return result
@@ -103,11 +103,11 @@ def main():
     if scheme_type != "":
         scheme_result = input("识别为 {} 词库, 输入 0 -- 正确, 1 -- 错误 以继续: ".format(scheme_type))
     if scheme_type == "" or scheme_result == 1:
-        input_scheme_type = input("输入 Rime userdb.txt 方案类型 (0 -- pinyin, 1 -- wubi): ")
+        input_scheme_type = input("输入 Rime userdb.txt 方案类型, 0 -- pinyin (全拼), 1 -- double pinyin flypy (小鹤双拼): ")
         if input_scheme_type == '0':
             scheme_type = "luna_pinyin"
         elif input_scheme_type == '1':
-            scheme_type = "wubi86"
+            scheme_type = "double_pinyin_flypy"
 
     while True:
         input_format = ["0", "1"]
